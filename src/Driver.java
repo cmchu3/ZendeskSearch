@@ -26,16 +26,27 @@ public class Driver {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		String inputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/input/";
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-filepath")) {
+				inputPath = args[i+1];
+			}
+		}
+
 		//Create loader, and load data
 		Loader loader = new Loader(data);
 		int searchNum = 1;
 		ArrayList<String> filenames = new ArrayList<>();
+		String filePath;
+		String filename;
 		for (String file : FILES) {
-			String filePath = Paths.get(".").toAbsolutePath().normalize().toString() + "/input/" + file;
-			String filename = file.substring(file.lastIndexOf("/")+1, file.length()-5);
+			filePath = inputPath + file;
+			filename = file.substring(file.lastIndexOf("/")+1, file.length()-5);
 			filenames.add(filename);
+
 			SEARCH_LIST += searchNum + ") " + filename + " ";
 			searchNum++;
+
 			loader.loadData(filePath, filename);
 		}
 
@@ -69,6 +80,7 @@ public class Driver {
 			if (cmd.equals("search")) {
 				System.out.println(SEARCH_LIST);
 				cmd = scanner.nextLine();
+				//TODO this gives an error ir cmd is not a number and its not the filename
 				if (filenames.contains(cmd) || (Integer.parseInt(cmd)<=filenames.size() && Integer.parseInt(cmd)>0)) {
 					if (filenames.contains(cmd)) {
 						fileSelected = cmd;
@@ -123,7 +135,7 @@ public class Driver {
 				System.out.println(data.get("organizations").get("created_at").get("2016-01-13T09:34:07 -11:00"));
 
 			}
-			else {
+			else if (!cmd.equals("exit")) {
 				System.out.println("No such command.");
 				System.out.println(HELP);
 			}

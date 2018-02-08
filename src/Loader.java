@@ -12,16 +12,27 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-
+/**
+ * Class that loads data inside input files to the search data structure
+ */
 public class Loader {
 
 	private Logger log = LogManager.getRootLogger();
 	private HashMap<String, HashMap<String, HashMap<String, ArrayList<SearchItem>>>> dataMap;
 
+	/**
+	 * Constructor
+	 * @param dataMap
+	 */
 	public Loader(HashMap<String, HashMap<String, HashMap<String, ArrayList<SearchItem>>>> dataMap) {
 		this.dataMap = dataMap;
 	}
 
+	/**
+	 * Method that goes through a json file and adds the data found to the search data map
+	 * @param jsonFile
+	 * @param name
+	 */
 	public void loadData(String jsonFile, String name) {
 		JSONParser parser = new JSONParser();
 
@@ -81,19 +92,19 @@ public class Loader {
 		}
 		catch  (FileNotFoundException e) {
 			log.error("Could not find file: " + jsonFile);
-			e.printStackTrace();
+			log.debug(e.getStackTrace().toString());
 		}
 		catch (org.json.simple.parser.ParseException e) {
 			log.error("Can not parse a given json file.");
-			e.printStackTrace();
+			log.debug(e.getStackTrace().toString());
 		}
 		catch (IOException e) {
 			log.error("General IO Exception in readJSON");
-			e.printStackTrace();
+			log.debug(e.getStackTrace().toString());
 		}
 		catch (Exception e) {
 			log.error("Encountered an error in loadData: " + e.getMessage());
-			e.printStackTrace();
+			log.debug(e.getStackTrace().toString());
 		}
 	}
 }
