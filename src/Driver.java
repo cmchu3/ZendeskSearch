@@ -41,7 +41,7 @@ public class Driver {
 		String filename;
 		for (String file : FILES) {
 			filePath = inputPath + file;
-			filename = file.substring(file.lastIndexOf("/")+1, file.length()-5);
+			filename = file.substring(file.lastIndexOf("/") + 1, file.length() - 5);
 			filenames.add(filename);
 
 			SEARCH_LIST += searchNum + ") " + filename + " ";
@@ -80,13 +80,20 @@ public class Driver {
 			if (cmd.equals("search")) {
 				System.out.println(SEARCH_LIST);
 				cmd = scanner.nextLine();
-				//TODO this gives an error ir cmd is not a number and its not the filename
-				if (filenames.contains(cmd) || (Integer.parseInt(cmd)<=filenames.size() && Integer.parseInt(cmd)>0)) {
+				int cmdInt = -1;
+				try {
+					cmdInt = Integer.parseInt(cmd);
+				}
+				catch (NumberFormatException e) {
+					//Making sure command can be a number
+					//Exception because the command is not in number form
+				}
+				if (filenames.contains(cmd) || (cmdInt <= filenames.size() && cmdInt > 0)) {
 					if (filenames.contains(cmd)) {
 						fileSelected = cmd;
 					}
 					else {
-						fileSelected = filenames.get(Integer.parseInt(cmd)-1);
+						fileSelected = filenames.get(cmdInt - 1);
 					}
 
 					System.out.println("Enter a search term:");
