@@ -17,10 +17,12 @@ public class AllTests {
 		loaderTest.testEntriesWithMissingAttributes();
 
 		//Testing driver
-//		DriverTest driverTest = new DriverTest();
-//		driverTest.testExitProgram();
-//		driverTest.testInputFilePath();
-//		driverTest.testSearch();
+		DriverTest driverTest = new DriverTest();
+		driverTest.testExitProgram();
+		driverTest.testExitInSearchMode();
+		driverTest.testSearchWithCorrectInput();
+		driverTest.testSearchWithIncorrectInput();
+		driverTest.testListingSearchTermsOptions();
 	}
 
 }
