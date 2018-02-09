@@ -7,22 +7,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 public class AllTests {
 
-	public static void main(String[] args) {
-		//Testing loader
-		LoaderTest loaderTest = new LoaderTest();
-		loaderTest.testCorrectDataLoad();
-		loaderTest.testFileNotFound();
-		loaderTest.testIncorrectJson();
-		loaderTest.testNullValues();
-		loaderTest.testEntriesWithMissingAttributes();
-
-		//Testing driver
-		DriverTest driverTest = new DriverTest();
-		driverTest.testExitProgram();
-		driverTest.testExitInSearchMode();
-		driverTest.testSearchWithCorrectInput();
-		driverTest.testSearchWithIncorrectInput();
-		driverTest.testListingSearchTermsOptions();
-	}
+	//Testing All Classes
 
 }

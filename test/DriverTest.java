@@ -7,23 +7,25 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class DriverTest {
 
-	public Driver driver;
+	private Driver driver = new Driver();
 	private ByteArrayOutputStream outContent;
 	private ByteArrayInputStream inContent;
+	private String[] args = new String[] {"filepath", Paths.get(".").toAbsolutePath().normalize().toString() + "/input/"};
 
-	public DriverTest() {
-		driver = new Driver();
+	@Before
+	public void setupStreams() {
+		outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
 	}
 
 	@After
 	public void restoreStreams() {
 		System.setOut(System.out);
 		System.setIn(System.in);
+		driver.SEARCH_LIST = "Select ";
 	}
 
 	@Test
@@ -31,11 +33,10 @@ public class DriverTest {
 		String instructions = "search\n" +
 				"1\n" +
 				"_id\n" +
-				"103";
+				"103\n" +
+				"exit";
 		inContent = new ByteArrayInputStream(instructions.getBytes());
 		System.setIn(inContent);
-		outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
 		String expectedOutput = "Welcome to Zendesk Search\n" +
 				"Possible search options are:\n" +
 				"\tsearch [to search Zendesk]\n" +
@@ -56,10 +57,6 @@ public class DriverTest {
 				"tags                 [\"Parrish\",\"Lindsay\",\"Armstrong\",\"Vaughn\"]\n" +
 				"\n" +
 				"Exiting Zendesk Search\n";
-
-		String[] args = new String[2];
-		args[0] = "-filepath";
-		args[1] = Paths.get(".").toAbsolutePath().normalize().toString() + "/input/";
 		driver.main(args);
 
 		Assert.assertEquals("Data was not found using correct input", expectedOutput, outContent.toString());
@@ -70,11 +67,10 @@ public class DriverTest {
 		String instructions = "search\n" +
 				"1\n" +
 				"_id\n" +
-				"wrong";
+				"wrong\n" +
+				"exit";
 		inContent = new ByteArrayInputStream(instructions.getBytes());
 		System.setIn(inContent);
-		outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
 		String expectedOutput = "Welcome to Zendesk Search\n" +
 				"Possible search options are:\n" +
 				"\tsearch [to search Zendesk]\n" +
@@ -86,10 +82,6 @@ public class DriverTest {
 				"Enter a search value:\n" +
 				"No such value found for _id in organizations\n" +
 				"Exiting Zendesk Search\n";
-
-		String[] args = new String[2];
-		args[0] = "-filepath";
-		args[1] = Paths.get(".").toAbsolutePath().normalize().toString() + "/input/";
 		driver.main(args);
 
 		Assert.assertEquals("Wrong data displayed with incorrect input", expectedOutput, outContent.toString());
@@ -101,11 +93,10 @@ public class DriverTest {
 				"1\n" +
 				"list\n" +
 				"_id\n" +
-				"103";
+				"103\n" +
+				"exit";
 		inContent = new ByteArrayInputStream(instructions.getBytes());
 		System.setIn(inContent);
-		outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
 		String expectedOutput = "Welcome to Zendesk Search\n" +
 				"Possible search options are:\n" +
 				"\tsearch [to search Zendesk]\n" +
@@ -137,10 +128,6 @@ public class DriverTest {
 				"tags                 [\"Parrish\",\"Lindsay\",\"Armstrong\",\"Vaughn\"]\n" +
 				"\n" +
 				"Exiting Zendesk Search\n";
-
-		String[] args = new String[2];
-		args[0] = "-filepath";
-		args[1] = Paths.get(".").toAbsolutePath().normalize().toString() + "/input/";
 		driver.main(args);
 
 		Assert.assertEquals("Listing possible search terms is not working as expected", expectedOutput, outContent.toString());
@@ -156,8 +143,6 @@ public class DriverTest {
 				"exit";
 		inContent = new ByteArrayInputStream(instructions.getBytes());
 		System.setIn(inContent);
-		outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
 		String expectedOutput = "Welcome to Zendesk Search\n" +
 				"Possible search options are:\n" +
 				"\tsearch [to search Zendesk]\n" +
@@ -167,9 +152,6 @@ public class DriverTest {
 				"Select 1) organizations 2) tickets 3) users \n" +
 				"No such selection available.\n" +
 				"Exiting Zendesk Search\n";
-		String[] args = new String[2];
-		args[0] = "-filepath";
-		args[1] = Paths.get(".").toAbsolutePath().normalize().toString() + "/input/";
 		driver.main(args);
 
 		Assert.assertEquals("Driver not exiting app when option exit is used", expectedOutput, outContent.toString());
@@ -182,8 +164,6 @@ public class DriverTest {
 				"exit";
 		inContent = new ByteArrayInputStream(instructions.getBytes());
 		System.setIn(inContent);
-		outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
 		String expectedOutput2 = "Welcome to Zendesk Search\n" +
 				"Possible search options are:\n" +
 				"\tsearch [to search Zendesk]\n" +
@@ -194,9 +174,6 @@ public class DriverTest {
 				"Enter a search term:\n" +
 				"No term exit found in organizations\n" +
 				"Exiting Zendesk Search\n";
-		String[] args = new String[2];
-		args[0] = "-filepath";
-		args[1] = Paths.get(".").toAbsolutePath().normalize().toString() + "/input/";
 		driver.main(args);
 
 		Assert.assertEquals("Driver not exiting app when option exit is used while in middle of searching",
