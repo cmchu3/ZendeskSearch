@@ -1,0 +1,37 @@
+[
+  {
+    "_id": 101,
+    "url": "http://initech.zendesk.com/api/v2/organizations/101.json",
+    "external_id": "9270ed79-35eb-4a38-a46f-35725197ea8d",
+    "name": "Enthaze",
+    "domain_names": [
+      "kage.com",
+      "ecratic.com",
+      "endipin.com",
+      "zentix.com"
+    ],
+    "created_at": "2016-05-21T11:10:28 -10:00",
+    "details": "MegaCorp",
+    "shared_tickets": false,
+    "tags": [
+      "Fulton",
+      "West",
+      "Rodriguez",
+      "Farley"
+    ]
+  },
+  {
+    "_id": 107,
+    "url": "http://initech.zendesk.com/api/v2/organizations/107.json",
+    "external_id": "773cc8fd-12e6-4f0b-9709-a370d98ee2e0",
+    "name": "Sulfax",
+    "created_at": "2016-01-12T01:16:06 -11:00",
+    "details": "MegaCörp",
+    "tags": [
+      "Travis",
+      "Clarke",
+      "Glenn",
+      "Santos"
+    ]
+  }
+]
