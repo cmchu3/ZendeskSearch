@@ -141,10 +141,6 @@ public class Driver {
 			else if (cmd.equals("help")) {
 				System.out.println(HELP);
 			}
-			else if (cmd.equals("test")) {
-				System.out.println(data.get("organizations").get("created_at").get("2016-01-13T09:34:07 -11:00"));
-
-			}
 			else if (!cmd.equals("exit")) {
 				System.out.println("No such command.");
 				System.out.println(HELP);
