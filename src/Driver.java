@@ -42,12 +42,15 @@ public class Driver {
 		for (String file : FILES) {
 			filePath = inputPath + file;
 			filename = file.substring(file.lastIndexOf("/") + 1, file.length() - 5);
-			filenames.add(filename);
-
-			SEARCH_LIST += searchNum + ") " + filename + " ";
-			searchNum++;
 
 			loader.loadData(filePath, filename);
+
+			//Make sure data loaded before giving user option for the file
+			if (data.containsKey(filename)) {
+				filenames.add(filename);
+				SEARCH_LIST += searchNum + ") " + filename + " ";
+				searchNum++;
+			}
 		}
 
 		//Start App UI

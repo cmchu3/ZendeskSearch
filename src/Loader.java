@@ -91,20 +91,19 @@ public class Loader {
 			dataMap.put(name, searchTerms);
 		}
 		catch  (FileNotFoundException e) {
-			log.error("Could not find file: " + jsonFile);
-			log.debug(e.getStackTrace().toString());
+			System.out.println("Could not find file: " + jsonFile);
+			log.debug(e.getMessage());
 		}
 		catch (org.json.simple.parser.ParseException e) {
-			log.error("Can not parse a given json file.");
-			log.debug(e.getStackTrace().toString());
+			System.out.println("Cannot parse given json file " + jsonFile);
+			log.debug(e.getMessage());
 		}
 		catch (IOException e) {
-			log.error("General IO Exception in readJSON");
-			log.debug(e.getStackTrace().toString());
+			log.debug("General IO Exception in readJSON");
+			log.debug(e.getMessage());
 		}
 		catch (Exception e) {
-			log.error("Encountered an error in loadData: " + e.getMessage());
-			log.debug(e.getStackTrace().toString());
+			log.debug("Encountered an error in loadData: " + e.getMessage());
 		}
 	}
 }
